@@ -1,0 +1,75 @@
+package org.cookbook.service;
+
+import javafx.scene.control.Alert;
+import org.cookbook.io.JsonFileHandler;
+import org.cookbook.model.Recipe;
+import org.cookbook.ui.EditorController;
+
+import java.io.File;
+import java.util.HashSet;
+import java.util.Objects;
+
+// This service should handle the data between GUI and saving, I.E taking string inputs and making them recipes
+// Aka the "Model" part of the model-view-controller pattern.
+public class CookbookService {
+    private static EditorController editorController = new EditorController();
+    private static HashSet<Recipe> loadedRecipes = new HashSet<Recipe>();
+    // RefreshRecipes should add any new recipes to loadedRecipes and remove any that don't exist anymore
+    public static HashSet<Recipe> GetLoadedRecipes(){
+        if (loadedRecipes.isEmpty()){
+            loadedRecipes = LoadRecipesFromFile();
+        }
+        return loadedRecipes;
+    }
+    public static HashSet<Recipe> GetRecipesByName(String searchQuery){
+        HashSet<Recipe> loadedRecipes = GetLoadedRecipes();
+        HashSet<Recipe> matchingRecipes = new HashSet<>();
+        for (Recipe recipe : loadedRecipes){
+            System.out.println("Searching recipes with query: " + searchQuery);
+            if (recipe.getName().toLowerCase().contains(searchQuery.toLowerCase())){
+                matchingRecipes.add(recipe);
+            }
+        }
+        return matchingRecipes;
+    }
+    private static HashSet<Recipe> LoadRecipesFromFile(){
+        HashSet<Recipe> returnRecipe = new HashSet<>();
+        File dir = new File("recipes/");
+        System.out.println(dir.getAbsolutePath());
+        File[] directoryFiles = dir.listFiles();
+        assert directoryFiles != null;
+        for (File recipe : directoryFiles){
+            System.out.println("File name: " + recipe.getName());
+            Recipe loadedRecipe = JsonFileHandler.LoadRecipeFromFile(recipe);
+
+            assert loadedRecipe != null;
+            System.out.println("Loaded Recipe Name" + loadedRecipe.getName());
+            returnRecipe.add(loadedRecipe);
+        }
+        System.out.println("Loaded Recipes: " + returnRecipe.toString());
+        return returnRecipe;
+    }
+    public static void SaveRecipe(Recipe recipe){
+        JsonFileHandler.SaveRecipeToFile(recipe);
+        loadedRecipes.remove(recipe); // if it has an old version of the recipe
+        loadedRecipes.removeIf(i -> i.getName().equals(recipe.getName()));
+        loadedRecipes.add(recipe);
+    }
+    public static void DeleteRecipe(Recipe recipe){
+        String recipeName = recipe.getName();
+        File toDelete = new File("recipes/" + recipeName + ".json");
+        loadedRecipes.remove(recipe);
+        JsonFileHandler.DeleteRecipe(toDelete);
+        System.out.println("Removed recipe " + recipeName);
+        //if (toDelete.exists()){
+        //    JsonFileHandler.DeleteRecipe(toDelete);
+        //    for (Recipe i : loadedRecipes){
+        //        if (i.getName().equals(recipeName)){
+        //            loadedRecipes.remove(i);
+        //        }
+        //    }
+        //} else {
+        //    System.out.println("Failed to find recipe " + recipeName + " for deletion");
+        //}
+    }
+}
