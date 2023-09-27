@@ -41,6 +41,7 @@ public class EditorController {
         Browser.setItems(recipes);
     }
     private void DisplayRecipe(Recipe recipe){
+        if (recipe == null){ return;}
         nameField.setText(recipe.getName());
         ingredientField.setText((recipe.getIngredients()));// Ingredients are an array. Gotta figure out how to display these
         instructionField.setText(recipe.getInstructions());

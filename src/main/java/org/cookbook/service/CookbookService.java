@@ -1,19 +1,17 @@
 package org.cookbook.service;
 
-import javafx.scene.control.Alert;
 import org.cookbook.io.JsonFileHandler;
 import org.cookbook.model.Recipe;
 import org.cookbook.ui.EditorController;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Objects;
 
 // This service should handle the data between GUI and saving, I.E taking string inputs and making them recipes
 // Aka the "Model" part of the model-view-controller pattern.
 public class CookbookService {
     private static EditorController editorController = new EditorController();
-    private static HashSet<Recipe> loadedRecipes = new HashSet<Recipe>();
+    private static HashSet<Recipe> loadedRecipes = new HashSet<>();
     // RefreshRecipes should add any new recipes to loadedRecipes and remove any that don't exist anymore
     public static HashSet<Recipe> GetLoadedRecipes(){
         if (loadedRecipes.isEmpty()){
@@ -46,7 +44,7 @@ public class CookbookService {
             System.out.println("Loaded Recipe Name" + loadedRecipe.getName());
             returnRecipe.add(loadedRecipe);
         }
-        System.out.println("Loaded Recipes: " + returnRecipe.toString());
+        System.out.println("Loaded Recipes: " + returnRecipe);
         return returnRecipe;
     }
     public static void SaveRecipe(Recipe recipe){
