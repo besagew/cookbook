@@ -1,14 +1,10 @@
 .root{
     -fx-font-size: 12pt;
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Times New Roman";
     -fx-base: rgb(148, 144, 142);
     -fx-background: rgb(148, 144, 142);
 }
 
 .button {
       -fx-base: rgb(224, 224, 224);
-}
-
-.hbox{
-    -fx-background: rgb(224, 224, 224);
 }
