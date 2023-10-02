@@ -43,10 +43,9 @@ public class EditorController {
     private void DisplayRecipe(Recipe recipe){
         if (recipe == null){ return;}
         nameField.setText(recipe.getName());
-        ingredientField.setText((recipe.getIngredients()));// Ingredients are an array. Gotta figure out how to display these
+        ingredientField.setText((recipe.getIngredients()));
         instructionField.setText(recipe.getInstructions());
         currentRecipe = recipe;
-        textEditor.setVisible(true);
     }
     @FXML
     private void initialize(){
@@ -94,6 +93,8 @@ public class EditorController {
                     );
                     CookbookService.SaveRecipe(toSave);
                     DisplayBrowserSet(CookbookService.GetRecipesByName(BrowserSearch.getText()));
+                    currentRecipe = toSave;
+                    DisplayRecipe(toSave);
                 }
             }
         });
