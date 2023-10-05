@@ -3,6 +3,7 @@ package org.cookbook.ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.cookbook.service.CookbookService;
 
@@ -17,6 +18,7 @@ public class CookbookUI extends Application {
         fxmlLoader.setLocation(getClass().getResource("/RecipeEditor.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 440);
         stage.setTitle("Calvin's Cookbook");
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/bookIcon.png"))));
         stage.setScene(scene);
         stage.show();
     }

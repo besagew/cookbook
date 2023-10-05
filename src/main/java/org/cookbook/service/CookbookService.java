@@ -33,6 +33,7 @@ public class CookbookService {
     private static HashSet<Recipe> LoadRecipesFromFile(){
         HashSet<Recipe> returnRecipe = new HashSet<>();
         File dir = new File("recipes/");
+        dir.mkdir();
         System.out.println(dir.getAbsolutePath());
         File[] directoryFiles = dir.listFiles();
         assert directoryFiles != null;
