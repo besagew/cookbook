@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class EditorController {
-    private CookbookService CookBookService = new CookbookService();
     @FXML
     public Button deleteButton;
     @FXML
