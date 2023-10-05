@@ -1,2 +1,2 @@
 # cookbook
-simple cookbook program to store and read recipes :) 
+lightweight cookbook program to store and read recipes :) 
