@@ -32,7 +32,7 @@ public class CookbookService {
     }
     private static HashSet<Recipe> LoadRecipesFromFile() {
         HashSet<Recipe> returnRecipe = new HashSet<>();
-        File dir = new File("recipes/");
+        File dir = new File(System.getenv("LOCALAPPDATA")+"\\recipes/");
         dir.mkdir();
         System.out.println(dir.getAbsolutePath());
         File[] directoryFiles = dir.listFiles();
@@ -66,7 +66,7 @@ public class CookbookService {
     }
     public static void DeleteRecipe(Recipe recipe){
         String recipeName = recipe.getName();
-        File toDelete = new File("recipes/" + recipeName + ".json");
+        File toDelete = new File(System.getenv("LOCALAPPDATA")+"\\recipes" + recipeName + ".json");
         loadedRecipes.remove(recipe);
         JsonFileHandler.DeleteRecipe(toDelete);
         System.out.println("Removed recipe " + recipeName);

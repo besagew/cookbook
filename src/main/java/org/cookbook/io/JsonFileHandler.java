@@ -11,7 +11,7 @@ public class JsonFileHandler {
     public static void SaveRecipeToFile(Recipe recipe){
         // this may need to return the File it creates later.
         String newFileName = recipe.getInternalName() + ".json";
-        String pathName = "recipes/" + newFileName;
+        String pathName = System.getenv("LOCALAPPDATA")+"\\recipes/" + newFileName;
         try {
             objectMapper.writeValue(new File(pathName), recipe);
             System.out.println("Saved recipe " + recipe.getInternalName());
