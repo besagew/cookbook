@@ -44,17 +44,20 @@ public class Recipe {
         return out.toString();
     }
     @Override
-    public boolean equals(Object o){
-        if (o == this) {
+    public boolean equals(Object otherRecipe){
+        if (otherRecipe == null){
+            return false;
+        }
+        if (otherRecipe == this) {
             return true;
         }
-        if (!(o instanceof Recipe otherRecipe)) {
+        if (!(otherRecipe.getClass().equals(Recipe.class))) {
             return false;
         }
         //We can assume it's a recipe
-        boolean sameName = Objects.equals(this.name, otherRecipe.getName());
-        boolean sameIngredients = Objects.equals(this.ingredients, otherRecipe.getIngredients());
-        boolean sameInstructions = Objects.equals(this.instructions, otherRecipe.getIngredients());
+        boolean sameName = Objects.equals(this.name, ((Recipe) otherRecipe).getName());
+        boolean sameIngredients = Objects.equals(this.ingredients, ((Recipe) otherRecipe).getIngredients());
+        boolean sameInstructions = Objects.equals(this.instructions, ((Recipe) otherRecipe).getIngredients());
         return (sameName && sameIngredients && sameInstructions);
     }
 }
